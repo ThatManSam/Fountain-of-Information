@@ -1,5 +1,5 @@
 /*
-The Particle System class is used t
+The Fountain class is used to create a "fountain" using particle system
 */
 import * as THREE from 'three'
 import { LinearSpline } from './linearSpline'
