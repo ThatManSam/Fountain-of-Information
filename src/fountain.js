@@ -180,23 +180,6 @@ class Fountain {
 
       p.position.add(p.velocity.clone().multiplyScalar(timeElapsed))
     }
-
-    // ensures that the particle closest to the camera is actually the one closest to the camera
-    // ~~ the last created particle should not be covering every other particle
-    this.particles.sort((a, b) => {
-      const d1 = this.camera.position.distanceTo(a.position)
-      const d2 = this.camera.position.distanceTo(b.position)
-
-      if (d1 > d2) {
-        return -1
-      }
-
-      if (d1 < d2) {
-        return 1
-      }
-
-      return 0
-    })
   }
 
   Step(timeElapsed) {
