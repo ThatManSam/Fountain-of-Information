@@ -51,7 +51,7 @@ class Fountain {
     this.camera = params.camera
     this.velocity = params.velocity
     this.spread = params.spread
-    this.positionX = params.positionX
+    this.positionZ = params.positionZ
     this.particles = []
 
     // define the particle material using the ShaderMaterial
@@ -100,7 +100,7 @@ class Fountain {
     this.sizeSpline = new LinearSpline((t, a, b) => {
       return a + t * (b - a)
     })
-    this.sizeSpline.AddPoint(0.0, 1.0)
+    this.sizeSpline.AddPoint(0.0, 0.3)
     this.sizeSpline.AddPoint(1.0, this.spread) // Change "5.0" to control spread (higher = more spread)
     this.UpdateGeometry()
   }
@@ -118,7 +118,7 @@ class Fountain {
     // particle definition
     for (let i = 0; i < num; i++) {
       this.particles.push({
-        position: new THREE.Vector3(this.positionX, 0, 0),
+        position: new THREE.Vector3(0, 0.5, this.positionZ),
         size: (Math.random() * 0.5 + 0.5) * 4.0,
         colour: new THREE.Color(),
         alpha: 1.0,
