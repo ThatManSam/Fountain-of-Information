@@ -3,46 +3,41 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { Fountain } from './src/fountain'
 
-let list;
-let item;
+let list
 
-fetch('https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly?lat=-37.8&lon=175.3&units=metric&lang=en', {
-	method: 'GET',
-	headers: {
-		'X-RapidAPI-Key': '44c686a889msh9cfed311931649bp1e2430jsn02f6698a3868',
-		'X-RapidAPI-Host': 'weatherbit-v1-mashape.p.rapidapi.com'
-	}
-})
-
-	.then(response => response.json())
-	.then(data => {
-		list = data.data;
-
-		list.map((item) => {
-			console.log(item) // See all the item.properties.
-			const time = item.timestamp_local;
-			const velocity = item.app_temp;
-			const description = item.weather.description;
-			const windSpeed = item.wind_spd;
-
-			// Array to loop through fountain values.
-
-			times.push(time);
-			velocities.push(velocity);
-			descriptions.push(description);
-			windSpeeds.push(windSpeed);
-
-			// Shows time as the heading, and then lists (horizontally) the other listed properties.. Hopefully..
-			// const curWeather = `<li><h1>${time}</h1><h2>${weather}</h2><h3>${temperature}</h3><h4>${windSpeed}</h4></li>`
-			// document.querySelector('.weather').innerHTML += curWeather;
-		})
+function call() {
+	fetch('https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly?lat=-37.8&lon=175.3&units=metric&lang=en', {
+		method: 'GET',
+		headers: {
+			'X-RapidAPI-Key': 'key',
+			'X-RapidAPI-Host': 'weatherbit-v1-mashape.p.rapidapi.com'
+		}
 	})
 
-	.catch(err => {
-		console.error(err);
-	});
+		.then(response => response.json())
+		.then(data => {
+			list = data.data
 
-// 
+			list.map((item) => {
+				const time = item.timestamp_local
+				const velocity = item.app_temp
+				const description = item.weather.description
+				const windSpeed = item.wind_spd
+
+				times.push(time)
+				velocities.push(velocity)
+				descriptions.push(description)
+				windSpeeds.push(windSpeed)
+			})
+		})
+		.catch(err => {
+			console.error(err)
+		})
+}
+call()
+// call api every 30 mins
+setTimeout(call, 1800000)
+
 let times = []
 let velocities = []
 let descriptions = []
@@ -55,8 +50,7 @@ let renderer
 let fountain1
 let fountain2
 let fountain3
-let velocity = 10
-let spread = 5.0
+let spread = 1.0
 
 function Init() {
 	scene = new THREE.Scene()
@@ -84,7 +78,7 @@ function Init() {
 	fountain1 = new Fountain({
 		scene: scene,
 		camera: camera,
-		velocity: velocity,
+		velocity: 0,
 		spread: spread,
 		positionX: 50,
 	})
@@ -92,16 +86,16 @@ function Init() {
 	fountain2 = new Fountain({
 		scene: scene,
 		camera: camera,
-		velocity: 20,
-		spread: 5.0,
+		velocity: 0,
+		spread: spread,
 		positionX: 0,
 	})
 
 	fountain3 = new Fountain({
 		scene: scene,
 		camera: camera,
-		velocity: 15,
-		spread: 3.0,
+		velocity: 0,
+		spread: spread,
 		positionX: -50,
 	})
 
