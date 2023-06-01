@@ -50,6 +50,7 @@ class Fountain {
     this.scene = params.scene
     this.camera = params.camera
     this.velocity = params.velocity
+    this.colour = params.colour
     this.spread = params.spread
     this.positionZ = params.positionZ
     this.particles = []
@@ -93,7 +94,7 @@ class Fountain {
       const c = a.clone()
       return c.lerp(b, t)
     })
-    this.colourSpline.AddPoint(0.0, new THREE.Color(0xBFE2FF))
+    this.colourSpline.AddPoint(0.0, this.colour) // starting colour
     this.colourSpline.AddPoint(1.0, new THREE.Color(0xFFFFFF))
 
     // size spline to control how the change in size behaves
