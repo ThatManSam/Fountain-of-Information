@@ -95,7 +95,7 @@ class Fountain {
       return c.lerp(b, t)
     })
     this.colourSpline.AddPoint(0.0, this.colour) // starting colour
-    this.colourSpline.AddPoint(1.0, new THREE.Color(0xFFFFFF))
+    this.colourSpline.AddPoint(1.0, this.colour)
 
     // size spline to control how the change in size behaves
     this.sizeSpline = new LinearSpline((t, a, b) => {
